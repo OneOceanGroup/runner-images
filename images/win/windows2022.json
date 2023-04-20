@@ -170,7 +170,9 @@
             ],
             "scripts": [
                 "{{ template_dir }}/scripts/Installers/Install-VS.ps1",
-                "{{ template_dir }}/scripts/Installers/Install-KubernetesTools.ps1"
+                "{{ template_dir }}/scripts/Installers/Install-KubernetesTools.ps1",
+                "{{ template_dir }}/scripts/Installers/Install-NET461.ps1",
+                "{{ template_dir }}/scripts/Installers/Install-NET48.ps1"
             ],
             "elevated_user": "{{user `install_user`}}",
             "elevated_password": "{{user `install_password`}}"
@@ -270,6 +272,7 @@
                 "{{ template_dir }}/scripts/Installers/Configure-DynamicPort.ps1",
                 "{{ template_dir }}/scripts/Installers/Configure-GDIProcessHandleQuota.ps1",
                 "{{ template_dir }}/scripts/Installers/Configure-Shell.ps1",
+                "{{ template_dir }}/scripts/Installers/Configure-AzureAgentSettings.ps1",
                 "{{ template_dir }}/scripts/Installers/Enable-DeveloperMode.ps1",
                 "{{ template_dir }}/scripts/Installers/Install-LLVM.ps1"
             ],

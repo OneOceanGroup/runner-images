@@ -133,6 +133,12 @@ Describe "NET48" {
     }
 }
 
+Describe "NET461" {
+    It "NET461" {
+        Get-ChildItem -Path "${env:ProgramFiles(x86)}\Microsoft SDKs\Windows\*\*\NETFX 4.6.1 Tools" -Directory | Should -HaveCount 1
+    }
+}
+
 Describe "NSIS" {
     It "NSIS" {
        "makensis /VERSION" | Should -ReturnZeroExitCode
