@@ -83,7 +83,7 @@
         { "name": "SqlServer" },
         { "name": "VSSetup" },
         { "name": "Microsoft.Graph" },
-        { "name": "AWSPowershell" }
+        {"name": "AWSPowershell"}
     ],
     "azureModules": [
         {
@@ -121,7 +121,6 @@
             "versions": [
                 "9.3.0"
             ],
-            "default": "9.3.0",
             "zip_versions": [
                 "7.5.0"
             ]
