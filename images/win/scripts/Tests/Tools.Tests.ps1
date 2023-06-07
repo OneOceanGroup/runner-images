@@ -236,3 +236,9 @@ Describe "OpenSSL" {
         openssl version | Should -BeLike "* ${OpenSSLVersion}*"
     }
 }
+
+Describe "InstallShield 2022 SAB" {
+    It "ISCmdBld" {
+        "ISCmdBld /?" | Should -ReturnZeroExitCode
+    }
+}
