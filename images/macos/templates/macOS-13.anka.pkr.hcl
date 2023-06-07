@@ -44,6 +44,11 @@ variable "xcode_install_password" {
   sensitive = true
 }
 
+variable "xcversion_auth_cookie" {
+  type = string
+  default = ""
+}
+
 variable "vcpu_count" {
   type = string
   default = "6"
@@ -163,6 +168,7 @@ build {
       "./provision/core/open_windows_check.sh",
       "./provision/core/powershell.sh",
       "./provision/core/dotnet.sh",
+      "./provision/core/python.sh",
       "./provision/core/azcopy.sh",
       "./provision/core/ruby.sh",
       "./provision/core/rubygem.sh",
@@ -175,6 +181,15 @@ build {
       "USER_PASSWORD=${var.vm_password}"
     ]
     execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
+  }
+  provisioner "shell" {
+    inline = [
+      "mkdir -p ~/.fastlane/spaceship/${var.xcode_install_user}"
+    ]
+  }
+  provisioner "file" {
+    destination = "~/.fastlane/spaceship/${var.xcode_install_user}/cookie"
+    source = "${var.xcversion_auth_cookie}"
   }
   provisioner "shell" {
     script = "./provision/core/xcode.ps1"
@@ -209,6 +224,7 @@ build {
       "./provision/core/chrome.sh",
       "./provision/core/edge.sh",
       "./provision/core/firefox.sh",
+      "./provision/core/pypy.sh",
       "./provision/core/bicep.sh",
       "./provision/core/codeql-bundle.sh"
     ]
@@ -218,12 +234,20 @@ build {
     execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
   }
   provisioner "shell" {
+    scripts = [
+      "./provision/core/toolset.ps1",
+      "./provision/core/configure-toolset.ps1"
+    ]
+    execute_command = "chmod +x {{ .Path }}; source $HOME/.bash_profile; {{ .Vars }} pwsh -f {{ .Path }}"
+  }
+  provisioner "shell" {
     script = "./provision/core/delete-duplicate-sims.rb"
     execute_command = "source $HOME/.bash_profile; ruby {{ .Path }}"
   }
   provisioner "shell" {
     inline = [
-      "pwsh -File \"$HOME/image-generation/software-report/SoftwareReport.Generator.ps1\" -OutputDirectory \"$HOME/image-generation/output/software-report\" -ImageName ${var.build_id}"
+      "pwsh -File \"$HOME/image-generation/software-report/SoftwareReport.Generator.ps1\" -OutputDirectory \"$HOME/image-generation/output/software-report\" -ImageName ${var.build_id}",
+      "pwsh -File \"$HOME/image-generation/tests/RunAll-Tests.ps1\""
     ]
     execute_command = "source $HOME/.bash_profile; {{ .Vars }} {{ .Path }}"
   }
