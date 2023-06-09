@@ -25,7 +25,9 @@
         "install_password": null,
         "capture_name_prefix": "packer",
         "image_version": "dev",
-        "image_os": "win22"
+        "image_os": "win22",
+        "sab_port": "{{env `SAB_PORT`}}",
+        "sab_server": "{{env `SAB_SERVER`}}"
     },
     "sensitive-variables": [
         "install_password",
@@ -256,7 +258,6 @@
                 "{{ template_dir }}/scripts/Installers/Install-Mercurial.ps1",
                 "{{ template_dir }}/scripts/Installers/Install-Zstd.ps1",
                 "{{ template_dir }}/scripts/Installers/Install-NSIS.ps1",
-                "{{ template_dir }}/scripts/Installers/Install-InstallShield.ps1",
                 "{{ template_dir }}/scripts/Installers/Install-Vcpkg.ps1",
                 "{{ template_dir }}/scripts/Installers/Install-PostgreSQL.ps1",
                 "{{ template_dir }}/scripts/Installers/Install-Bazel.ps1",
@@ -265,6 +266,22 @@
                 "{{ template_dir }}/scripts/Installers/Install-MongoDB.ps1",
                 "{{ template_dir }}/scripts/Installers/Install-CodeQLBundle.ps1",
                 "{{ template_dir }}/scripts/Installers/Disable-JITDebugger.ps1"
+            ]
+        },
+        {
+            "type": "powershell",
+            "pause_before": "2m",
+            "valid_exit_codes": [
+                0,
+                1,
+                3010
+            ],
+            "environment_vars": [
+                "SAB_PORT={{user `sab_port`}}",
+                "SAB_SERVER={{user `sab_server`}}"
+            ],
+            "scripts": [
+                "{{ template_dir }}/scripts/Installers/Install-InstallShield.ps1"
             ]
         },
         {
