@@ -198,9 +198,9 @@ Function GenerateResourcesAndImage {
         }
 
         if ($tags) {
-            New-AzStorageAccount -ResourceGroupName $ResourceGroupName -AccountName $storageAccountName -Location $AzureLocation -SkuName "Standard_LRS" -AllowBlobPublicAccess $AllowBlobPublicAccess -EnableHttpsTrafficOnly $EnableHttpsTrafficOnly -Tag $tags
+            New-AzStorageAccount -ResourceGroupName $ResourceGroupName -AccountName $storageAccountName -Location $AzureLocation -SkuName "Standard_LRS" -AllowBlobPublicAccess $AllowBlobPublicAccess -EnableHttpsTrafficOnly $EnableHttpsTrafficOnly -MinimumTlsVersion "TLS1_2" -Tag $tags
         } else {
-            New-AzStorageAccount -ResourceGroupName $ResourceGroupName -AccountName $storageAccountName -Location $AzureLocation -SkuName "Standard_LRS" -AllowBlobPublicAccess $AllowBlobPublicAccess -EnableHttpsTrafficOnly $EnableHttpsTrafficOnly
+            New-AzStorageAccount -ResourceGroupName $ResourceGroupName -AccountName $storageAccountName -Location $AzureLocation -SkuName "Standard_LRS" -AllowBlobPublicAccess $AllowBlobPublicAccess -EnableHttpsTrafficOnly $EnableHttpsTrafficOnly -MinimumTlsVersion "TLS1_2"
         }
 
         if ([string]::IsNullOrEmpty($AzureClientId)) {
@@ -288,6 +288,12 @@ Function GenerateResourcesAndImage {
             }
         }
 
+        $TagsJson = $Tags | ConvertTo-Json -Compress
+        if ($PSVersionTable.PSVersion.Major -eq 5) {
+            Write-Verbose "PowerShell 5 detected. Replacing double quotes with escaped double quotes in tags JSON."
+            $TagsJson = $TagsJson -replace '"', '\"'
+        }
+
         & $packerBinary build -on-error="$($OnError)" `
             -var "client_id=$($spClientId)" `
             -var "client_secret=$($ServicePrincipalClientSecret)" `
@@ -298,7 +304,7 @@ Function GenerateResourcesAndImage {
             -var "storage_account=$($storageAccountName)" `
             -var "install_password=$($InstallPassword)" `
             -var "allowed_inbound_ip_addresses=$($AgentIp)" `
-            -var "azure_tags=$($Tags | ConvertTo-Json -Compress)" `
+            -var "azure_tags=$($TagsJson)" `
             $builderScriptPath
     }
     catch {

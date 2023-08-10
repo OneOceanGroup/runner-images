@@ -156,3 +156,22 @@ function Add-EnvironmentVariable {
 function isVeertu {
     return (Test-Path -Path "/Library/Application Support/Veertu")
 }
+
+function Get-Architecture {
+    $arch = arch
+    if ($arch -ne "arm64")
+    {
+        $arch = "x64"
+    }
+
+    return $arch
+}
+
+function Test-CommandExists {
+    param
+    (
+        [Parameter(Mandatory)] [string] $Command
+    )
+
+    [boolean] (Get-Command $Command  -ErrorAction 'SilentlyContinue')
+}
