@@ -52,7 +52,8 @@
                 "3.6",
                 "3.7",
                 "3.8",
-                "3.9"
+                "3.9",
+                "3.10"
             ]
         },
         {
@@ -147,17 +148,7 @@
     ],
     "java": {
         "default": "8",
-        "default_vendor": "Temurin-Hotspot",
-        "vendors": [
-            {
-                "name": "Temurin-Hotspot",
-                "versions": [ "8", "11", "17" ]
-            },
-            {
-                "name": "Adopt",
-                "versions": [ "8", "11", "13" ]
-            }
-        ]
+        "versions": [ "8", "11", "17" ]
     },
     "android": {
         "platform_min_version": "19",
@@ -434,7 +425,6 @@
     },
     "dotnet": {
         "versions": [
-            "3.1",
             "6.0"
         ],
         "tools": [
@@ -479,7 +469,7 @@
         "version": "5.7"
     },
     "mongodb": {
-        "version": "5.0.15"
+        "version": "5.0"
     },
     "nsis": {
         "version": "3.08"

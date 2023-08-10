@@ -67,7 +67,7 @@ In any case you will need these software installed:
 ## Automated image generation
 
 This repo bundles script that automates image generation process.
-You only need a build agent configured as described above and active Azure subsctiption.
+You only need a build agent configured as described above and active Azure subscription.
 We suggest to start with UbuntuMinimal image because it includes only a minimal set of required software and builds in less then half an hour.
 
 All steps here are supposed to run in Powershell.
@@ -85,17 +85,17 @@ Then import [GenerateResourcesAndImage](../helpers/GenerateResourcesAndImage.ps1
 Import-Module .\helpers\GenerateResourcesAndImage.ps1
 ```
 
+> :warning: When running `GenerateResourcesAndImage` in PowerShell 7.3, following command should be executed first:
+> ```powershell
+> $PSNativeCommandArgumentPassing = 'Legacy'
+> ```
+
 Finally, run `GenerateResourcesAndImage` function setting mandatory arguments: image type and where to create resources:
 
 - `SubscriptionId` - your Azure Subscription ID
 - `ResourceGroupName` - name of the resource group that will be created within your subscription (e.g. "imagegen-test")
 - `AzureLocation` - location where resources will be created (e.g. "East US")
 - `ImageType` - what image to build (we suggest choosing "UbuntuMinimal" here, other valid options are "Windows2019", "Windows2022", "Ubuntu2004", "Ubuntu2204")
-
-> :warning: When running `GenerateResourcesAndImage` in PowerShell 7.3, following command should be executed first:
-> ```powershell
-> $PSNativeCommandArgumentPassing = 'Legacy'
-> ```
 
 This function automatically creates all required Azure resources and kicks off packer image generation for the selected image type.
 
@@ -275,3 +275,4 @@ The scripts are copied to the VHD during the image generation process to the fol
 - **InternetExplorerConfiguration** - turns off the Internet Explorer Enhanced Security feature
 - **Msys2FirstLaunch.ps1** - initializes bash user profile in MSYS2
 - **VSConfiguration.ps1** - performs initial Visual Studio configuration
+
