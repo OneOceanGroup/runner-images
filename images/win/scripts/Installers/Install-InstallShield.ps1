@@ -1,13 +1,14 @@
 ################################################################################
 ##  File:  Install-InstallShield.ps1
-##  Desc:  Install InstallShield 2022 SAB
+##  Desc:  Install InstallShield 2023 SAB
 ################################################################################
 
 # https://flexerasoftware.flexnetoperations.com/control/inst/AnonymousDownload?dkey=17981227
+# https://flexerasoftware.flexnetoperations.com/control/inst/AnonymousDownload?dkey=20096677
 
-# SAB2022 download key.
-$DownloadKey = "17981227";
-$InstallerName = "InstallShield2022R2StandaloneBuild.exe";
+# SAB2023 download key.
+$DownloadKey = "20096677";
+$InstallerName = "InstallShield2023R1StandaloneBuild.exe";
 $InstallerURL = "https://flexerasoftware.flexnetoperations.com/control/inst/AnonymousDownload?dkey=${DownloadKey}";
 
 $InstallDir = "${env:ProgramFiles(x86)}\InstallShield\2022 SAB";
@@ -36,10 +37,10 @@ $ArgList = (`
     );
 
 Write-Host $ArgList
-    
+
 Install-Binary -Url $InstallerUrl -Name $InstallerName -ArgumentList $ArgList;
 
 # Add the SAB system directory to the PATH.
 Add-MachinePathItem ${SystemPath}
 
-Invoke-PesterTests -TestFile "Tools" -TestName "InstallShield 2022 SAB"
+Invoke-PesterTests -TestFile "Tools" -TestName "InstallShield 2023 SAB"

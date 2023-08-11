@@ -237,7 +237,7 @@ Describe "OpenSSL" {
     }
 }
 
-Describe "InstallShield 2022 SAB" {
+Describe "InstallShield 2023 SAB" {
     It "ISCmdBld" {
         "ISCmdBld /?" | Should -ReturnZeroExitCode
     }
