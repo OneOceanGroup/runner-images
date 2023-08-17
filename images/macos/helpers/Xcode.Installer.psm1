@@ -126,13 +126,17 @@ function Approve-XcodeLicense {
         [string]$Version
     )
 
+    $os = Get-OSVersion
+
     $XcodeRootPath = Get-XcodeRootPath -Version $Version
     Write-Host "Approving Xcode license for '$XcodeRootPath'..."
     $xcodeBuildPath = Get-XcodeToolPath -XcodeRootPath $XcodeRootPath -ToolName "xcodebuild"
-    try {
-        Invoke-Expression -Command "sudo $xcodeBuildPath -license accept" 2>&1 | Out-Null
-    } catch { }
 
+    if ($os.IsVentura -or $os.IsVenturaArm64) {
+        Invoke-ValidateCommand -Command "sudo $xcodeBuildPath -license accept" -Timeout 15
+    } else {
+        Invoke-ValidateCommand -Command "sudo $xcodeBuildPath -license accept"
+    }
 }
 
 function Install-XcodeAdditionalPackages {
