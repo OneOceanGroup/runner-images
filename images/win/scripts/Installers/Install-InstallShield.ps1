@@ -11,7 +11,7 @@ $DownloadKey = "20096677";
 $InstallerName = "InstallShield2023R1StandaloneBuild.exe";
 $InstallerURL = "https://flexerasoftware.flexnetoperations.com/control/inst/AnonymousDownload?dkey=${DownloadKey}";
 
-$InstallDir = "${env:ProgramFiles(x86)}\InstallShield\2022 SAB";
+$InstallDir = "${env:ProgramFiles(x86)}\InstallShield\2023 SAB";
 $SystemPath = "${InstallDir}\System";
 
 # Pull the licence server values from the environment, if set.
