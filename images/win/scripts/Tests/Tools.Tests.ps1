@@ -133,6 +133,12 @@ Describe "NET48" {
     }
 }
 
+Describe "NET461" {
+    It "NET461" {
+        Get-ChildItem -Path "${env:ProgramFiles(x86)}\Microsoft SDKs\Windows\*\*\NETFX 4.6.1 Tools" -Directory | Should -HaveCount 1
+    }
+}
+
 Describe "NSIS" {
     It "NSIS" {
        "makensis /VERSION" | Should -ReturnZeroExitCode
@@ -185,7 +191,7 @@ Describe "Vcpkg" {
     }
 }
 
-Describe "VCRedist" -Skip:(Test-IsWin22) {
+Describe "VCRedist" {
     It "vcredist_2010_x64" {
         "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{1D8E6291-B0D5-35EC-8441-6616F567A0F7}" | Should -Exist
         "C:\Windows\System32\msvcr100.dll" | Should -Exist
@@ -228,5 +234,11 @@ Describe "OpenSSL" {
     It "OpenSSL" {
         $OpenSSLVersion = (Get-ToolsetContent).openssl.version
         openssl version | Should -BeLike "* ${OpenSSLVersion}*"
+    }
+}
+
+Describe "InstallShield 2023 SAB" {
+    It "ISCmdBld" {
+        "ISCmdBld /?" | Should -ReturnZeroExitCode
     }
 }

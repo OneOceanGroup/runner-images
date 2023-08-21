@@ -25,7 +25,9 @@
         "install_password": null,
         "capture_name_prefix": "packer",
         "image_version": "dev",
-        "image_os": "win22"
+        "image_os": "win22",
+        "sab_port": "{{env `SAB_PORT`}}",
+        "sab_server": "{{env `SAB_SERVER`}}"
     },
     "sensitive-variables": [
         "install_password",
@@ -153,6 +155,7 @@
         {
             "type": "powershell",
             "scripts": [
+                "{{ template_dir }}/scripts/Installers/Install-VCRedist.ps1",
                 "{{ template_dir }}/scripts/Installers/Install-Docker.ps1",
                 "{{ template_dir }}/scripts/Installers/Install-PowershellCore.ps1",
                 "{{ template_dir }}/scripts/Installers/Install-WebPlatformInstaller.ps1"
@@ -170,7 +173,9 @@
             ],
             "scripts": [
                 "{{ template_dir }}/scripts/Installers/Install-VS.ps1",
-                "{{ template_dir }}/scripts/Installers/Install-KubernetesTools.ps1"
+                "{{ template_dir }}/scripts/Installers/Install-KubernetesTools.ps1",
+                "{{ template_dir }}/scripts/Installers/Install-NET461.ps1",
+                "{{ template_dir }}/scripts/Installers/Install-NET48.ps1"
             ],
             "elevated_user": "{{user `install_user`}}",
             "elevated_password": "{{user `install_password`}}"
@@ -265,11 +270,28 @@
         },
         {
             "type": "powershell",
+            "pause_before": "2m",
+            "valid_exit_codes": [
+                0,
+                1,
+                3010
+            ],
+            "environment_vars": [
+                "SAB_PORT={{user `sab_port`}}",
+                "SAB_SERVER={{user `sab_server`}}"
+            ],
+            "scripts": [
+                "{{ template_dir }}/scripts/Installers/Install-InstallShield.ps1"
+            ]
+        },
+        {
+            "type": "powershell",
             "scripts": [
                 "{{ template_dir }}/scripts/Installers/Install-WindowsUpdates.ps1",
                 "{{ template_dir }}/scripts/Installers/Configure-DynamicPort.ps1",
                 "{{ template_dir }}/scripts/Installers/Configure-GDIProcessHandleQuota.ps1",
                 "{{ template_dir }}/scripts/Installers/Configure-Shell.ps1",
+                "{{ template_dir }}/scripts/Installers/Configure-AzureAgentSettings.ps1",
                 "{{ template_dir }}/scripts/Installers/Enable-DeveloperMode.ps1",
                 "{{ template_dir }}/scripts/Installers/Install-LLVM.ps1"
             ],

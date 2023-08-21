@@ -360,7 +360,9 @@
     },
     "dotnet": {
         "versions": [
-            "6.0"
+            "3.1",
+            "6.0",
+            "7.0"
         ],
         "tools": [
             { "name": "nbgv", "test": "nbgv --version", "getversion": "nbgv --version" }
