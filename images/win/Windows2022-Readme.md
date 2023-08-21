@@ -1,6 +1,6 @@
 # Windows Server 2022
 - OS Version: 10.0.20348 Build 1906
-- Image Version: dev
+- Image Version: 20230820.1.0
 
 ## Windows features
 - Windows Subsystem for Linux (WSLv1): Enabled
@@ -109,7 +109,7 @@
 - Rustfmt 1.5.2
 
 ### Browsers and Drivers
-- Google Chrome 116.0.5845.97
+- Google Chrome 116.0.5845.96
 - Chrome Driver 116.0.5845.96
 - Microsoft Edge 115.0.1901.203
 - Microsoft Edge Driver 115.0.1901.203
@@ -552,11 +552,11 @@ Note: MSYS2 is pre-installed on image but not added to PATH.
 - 10.0.22621.0
 
 ### .NET Core Tools
-- .NET Core SDK: 3.1.120, 3.1.202, 3.1.302, 3.1.426, 6.0.121, 6.0.203, 6.0.316, 6.0.413, 7.0.110, 7.0.203, 7.0.307, 7.0.400
-- .NET Framework: 4.6.1, 4.8, 4.8.1
-- Microsoft.AspNetCore.App: 3.1.4, 3.1.6, 3.1.20, 3.1.32, 6.0.5, 6.0.21, 7.0.5, 7.0.10
-- Microsoft.NETCore.App: 3.1.4, 3.1.6, 3.1.20, 3.1.32, 6.0.5, 6.0.21, 7.0.5, 7.0.10
-- Microsoft.WindowsDesktop.App: 3.1.4, 3.1.6, 3.1.20, 3.1.32, 6.0.5, 6.0.21, 7.0.5, 7.0.10
+- .NET Core SDK: 6.0.121, 6.0.203, 6.0.316, 6.0.413, 7.0.400
+- .NET Framework: 4.8, 4.8.1
+- Microsoft.AspNetCore.App: 6.0.5, 6.0.21, 7.0.10
+- Microsoft.NETCore.App: 6.0.5, 6.0.21, 7.0.10
+- Microsoft.WindowsDesktop.App: 6.0.5, 6.0.21, 7.0.10
 - nbgv 3.6.133+2d32d93cb1
 
 ### PowerShell Tools
@@ -569,7 +569,7 @@ Note: MSYS2 is pre-installed on image but not added to PATH.
 - Az (Cached): 7.5.0.zip
 - Azure (Cached): 3.8.0.zip, 4.2.1.zip, 5.1.1.zip
 - AzureRM (Cached): 3.8.0.zip, 4.2.1.zip, 5.1.1.zip, 6.7.0.zip
-- AWSPowershell: 4.1.396
+- AWSPowershell: 4.1.397
 - DockerMsftProvider: 1.0.0.8
 - MarkdownPS: 1.9
 - Microsoft.Graph: 2.3.0
